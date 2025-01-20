@@ -1,44 +1,40 @@
-// import type { CreateTaskInput, Task, UpdateTaskInput } from '@/types/task';
+import { Task } from '@/types/task';
 
-// export class TaskAPI {
-//     private static BASE_URL = '/api/tasks';
+class TaskAPI {
+    private tasks: Task[] = [];
 
-//     static async getTasks(): Promise<Task[]> {
-//         const response = await fetch(this.BASE_URL);
-//         if (!response.ok) throw new Error('Failed to fetch tasks');
-//         return response.json();
-//     }
+    async fetchTasks(): Promise<Task[]> {
+        return new Promise((resolve) => {
+            setTimeout(() => resolve(this.tasks), 500);
+        });
+    }
 
-//     static async getTask(id: string): Promise<Task> {
-//         const response = await fetch(`${this.BASE_URL}/${id}`);
-//         if (!response.ok) throw new Error('Failed to fetch task');
-//         return response.json();
-//     }
+    async addTask(task: Task): Promise<void> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.tasks.push(task);
+                resolve();
+            }, 500);
+        });
+    }
 
-//     static async createTask(input: CreateTaskInput): Promise<Task> {
-//         const response = await fetch(this.BASE_URL, {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(input),
-//         });
-//         if (!response.ok) throw new Error('Failed to create task');
-//         return response.json();
-//     }
+    async updateTask(updatedTask: Task): Promise<void> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.tasks = this.tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task));
+                resolve();
+            }, 500);
+        });
+    }
 
-//     static async updateTask(id: string, input: UpdateTaskInput): Promise<Task> {
-//         const response = await fetch(`${this.BASE_URL}/${id}`, {
-//             method: 'PUT',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(input),
-//         });
-//         if (!response.ok) throw new Error('Failed to update task');
-//         return response.json();
-//     }
+    async deleteTask(id: string): Promise<void> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                this.tasks = this.tasks.filter((task) => task.id !== id);
+                resolve();
+            }, 500);
+        });
+    }
+}
 
-//     static async deleteTask(id: string): Promise<void> {
-//         const response = await fetch(`${this.BASE_URL}/${id}`, {
-//             method: 'DELETE',
-//         });
-//         if (!response.ok) throw new Error('Failed to delete task');
-//     }
-// }
+export const taskAPI = new TaskAPI();
