@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Task } from '@/types/task';
 import { taskAPI } from '@/services/api/TaskAPI';
@@ -18,9 +18,13 @@ const TodoApp: FC = () => {
         setTasks(fetchedTasks);
     };
 
+    useEffect(() => {
+        loadTasks();
+    }, []);
+
     const addTask = async (title: string, color: string) => {
         const newTask: Task = {
-            id: Math.random().toString(36).substr(2, 9),
+            id: Math.random().toString(36).substring(2, 9),
             title,
             completed: false,
             color,
