@@ -43,8 +43,8 @@ export const TaskForm: FC<TaskFormProps> = ({ onClose, onSubmit, initialTask }) 
                     <ColorPicker selectedColor={color} onColorSelect={setColor} />
                 </div>
                 <button type="submit" className="w-full bg-[#4A72FF] text-white py-3 rounded-lg hover:bg-[#3A5FFF] transition-colors flex items-center justify-center gap-2 font-bold">
-                    Add Task
-                    <Image src="/plus.png" alt="Save" width={20} height={20} />
+                    {initialTask ? 'Save' : 'Add Task'}
+                    <Image src={initialTask ? '/check-complete.png' : '/plus.png'} alt={initialTask ? 'Save' : 'Add Task'} width={20} height={20} />
                 </button>
             </form>
         </div>
